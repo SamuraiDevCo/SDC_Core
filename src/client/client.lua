@@ -114,17 +114,17 @@ function ShowNotification(msg, extra)
 	elseif SDC.NotificationSystem == 'mythic_new' then
 		exports['mythic_notify']:SendAlert('inform', msg)
 	elseif SDC.NotificationSystem == 'okoknotify' then
-		exports['okokNotify']:Alert(SDC.Lang.DealershipLabel, msg, 3000, 'neutral')
+		exports['okokNotify']:Alert("SDC Resources", msg, 3000, 'neutral')
     elseif SDC.NotificationSystem == 'ox_lib' then
         if extra == "primary" then
             lib.notify({
-                title = SDC.Lang.DealershipLabel,
+                title = "SDC Resources",
                 description = msg,
                 type = "inform"
             })
         else
             lib.notify({
-                title = SDC.Lang.DealershipLabel,
+                title = "SDC Resources",
                 description = msg,
                 type = extra
             })
