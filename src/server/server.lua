@@ -136,24 +136,24 @@ exports("GetOwnerTag", GetOwnerTag)
 function GetPlayerJob(src)
     if SDC.Framework == "qb-core" then
         local Player = QBCore.Functions.GetPlayer(src)
-        if Player then
+        if Player and Player.PlayerData and Player.PlayerData.job then
             return Player.PlayerData.job.name
         else
-            return nil
+            return ""
         end
     elseif SDC.Framework == "esx" then
         local xPlayer = ESX.GetPlayerFromId(src)
-        if xPlayer then
-            return xPlayer.PlayerData.job.name
+        if xPlayer and xPlayer.job then
+            return xPlayer.job.name
         else
-            return nil
+            return ""
         end
     elseif SDC.Framework == "qb-core" then
         local Player = exports.qbx_core:GetPlayer(src)
-        if Player then
+        if Player and Player.PlayerData and Player.PlayerData.job then
             return Player.PlayerData.job.name
         else
-            return nil
+            return ""
         end
     elseif SDC.Framework == "custom" then
         --Here is where you would put your custom code for your custom framework
