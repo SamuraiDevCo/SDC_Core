@@ -99,6 +99,7 @@ function ProgressBar(time, label)
     end
 end
 exports("ProgressBar", ProgressBar)
+exports("DoProgressbar", ProgressBar)
 
 --------------------------------------------------------------------------------------------------------------
 -- Notification Functions
