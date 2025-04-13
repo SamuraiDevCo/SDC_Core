@@ -519,7 +519,7 @@ function SaveVehicleInDatabase(src, plate, vdata, vmodel)
                     plate,
                     json.encode(vdata),
                     "car",
-                    nil,
+                    "civ",
                     1,
                     nil,
                     nil,

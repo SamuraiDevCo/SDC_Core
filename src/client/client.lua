@@ -99,6 +99,8 @@ function ProgressBar(time, label)
     end
 end
 exports("ProgressBar", ProgressBar)
+exports("DoProgressbar", ProgressBar)
+exports("Progressbar", ProgressBar)
 
 --------------------------------------------------------------------------------------------------------------
 -- Notification Functions
@@ -150,10 +152,10 @@ exports("ShowNotification", ShowNotification)
 -- Vehicle Functions
 --------------------------------------------------------------------------------------------------------------
 function GiveVehicleFuel(veh)
-    if SDC.Fuel == "none" then
+    if SDC.FuelResource == "none" then
         --Leave Blank
     else
-        exports[SDC.Fuel]:SetFuel(veh, 100.0)
+        exports[SDC.FuelResource]:SetFuel(veh, 100.0)
     end
 end
 exports("GiveVehicleFuel", GiveVehicleFuel)
