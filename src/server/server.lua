@@ -119,7 +119,7 @@ function GetOwnerTag(src)
         else
             return nil
         end
-    elseif SDC.Framework == "qb-core" then
+    elseif SDC.Framework == "qbx-core" then
         local Player = exports.qbx_core:GetPlayer(src)
         if Player then
             return Player.PlayerData.citizenid
@@ -148,7 +148,7 @@ function GetPlayerJob(src)
         else
             return ""
         end
-    elseif SDC.Framework == "qb-core" then
+    elseif SDC.Framework == "qbx-core" then
         local Player = exports.qbx_core:GetPlayer(src)
         if Player and Player.PlayerData and Player.PlayerData.job then
             return Player.PlayerData.job.name
@@ -302,15 +302,15 @@ function RegisterUsableItem(item, foodordrink, eventtotrigger, removeitem)
                 local src = source
                 local Player = QBCore.Functions.GetPlayer(src)
                 if removeitem then
-                    Player.Functions.RemoveItem(itemi.name, 1, itemi.slot)
+                    Player.Functions.RemoveItem(item, 1)
                 end
                 if eventtotrigger then
                     TriggerEvent(eventtotrigger, item, src)
                 else
                     if foodordrink == "food" then
-                        TriggerClientEvent("consumables:client:Eat", src, itemi.name)
+                        TriggerClientEvent("consumables:client:Eat", src, item)
                     else
-                        TriggerClientEvent("consumables:client:Drink", src, itemi.name)
+                        TriggerClientEvent("consumables:client:Drink", src, item)
                     end
                 end
             end)
@@ -337,7 +337,7 @@ function RegisterUsableItem(item, foodordrink, eventtotrigger, removeitem)
             exports.qbx_core:CreateUseableItem(item, function(source, itemi)
                 local src = source
                 if removeitem then
-                    exports.ox_inventory:RemoveItem(src, itemi.name, 1)
+                    exports.ox_inventory:RemoveItem(src, item, 1)
                 end
                 if eventtotrigger then
                     TriggerEvent(eventtotrigger, item, src)
@@ -367,15 +367,15 @@ function RegisterUsableItem(item, foodordrink, eventtotrigger, removeitem)
                 local src = source
                 local Player = QBCore.Functions.GetPlayer(src)
                 if removeitem then
-                    exports.ox_inventory:RemoveItem(src, itemi.name, 1)
+                    exports.ox_inventory:RemoveItem(src, item, 1)
                 end
                 if eventtotrigger then
                     TriggerEvent(eventtotrigger, item, src)
                 else
                     if foodordrink == "food" then
-                        TriggerClientEvent("consumables:client:Eat", src, itemi.name)
+                        TriggerClientEvent("consumables:client:Eat", src, item)
                     else
-                        TriggerClientEvent("consumables:client:Drink", src, itemi.name)
+                        TriggerClientEvent("consumables:client:Drink", src, item)
                     end
                 end
             end)
@@ -383,7 +383,7 @@ function RegisterUsableItem(item, foodordrink, eventtotrigger, removeitem)
             ESX.RegisterUsableItem(item, function(src)
                 local xPlayer = ESX.GetPlayerFromId(src)
                 if removeitem then
-                    exports.ox_inventory:RemoveItem(src, itemi.name, 1)
+                    exports.ox_inventory:RemoveItem(src, item, 1)
                 end
                 if eventtotrigger then
                     TriggerEvent(eventtotrigger, item, src)
@@ -401,7 +401,7 @@ function RegisterUsableItem(item, foodordrink, eventtotrigger, removeitem)
             exports.qbx_core:CreateUseableItem(item, function(source, itemi)
                 local src = source
                 if removeitem then
-                    exports.ox_inventory:RemoveItem(src, itemi.name, 1)
+                    exports.ox_inventory:RemoveItem(src, item, 1)
                 end
                 if eventtotrigger then
                     TriggerEvent(eventtotrigger, item, src)
@@ -437,9 +437,9 @@ function RegisterUsableItem(item, foodordrink, eventtotrigger, removeitem)
                     TriggerEvent(eventtotrigger, item, src)
                 else
                     if foodordrink == "food" then
-                        TriggerClientEvent("consumables:client:Eat", src, itemi.name)
+                        TriggerClientEvent("consumables:client:Eat", src, item)
                     else
-                        TriggerClientEvent("consumables:client:Drink", src, itemi.name)
+                        TriggerClientEvent("consumables:client:Drink", src, item)
                     end
                 end
             end)
