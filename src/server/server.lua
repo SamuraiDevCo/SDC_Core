@@ -325,11 +325,11 @@ function RegisterUsableItem(item, foodordrink, eventtotrigger, removeitem)
                 else
                     xPlayer.removeInventoryItem(item, 1)
                     if foodordrink == "food" then
-                        TriggerClientEvent('esx_status:add', source, 'hunger', math.random(300000, 600000))
-                        TriggerClientEvent('esx_basicneeds:onEat', source)
+                        TriggerClientEvent('esx_status:add', src, 'hunger', math.random(300000, 600000))
+                        TriggerClientEvent('esx_basicneeds:onEat', src)
                     else
-                        TriggerClientEvent('esx_status:add', source, 'thirst', math.random(300000, 600000))
-                        TriggerClientEvent('esx_basicneeds:onDrink', source)
+                        TriggerClientEvent('esx_status:add', src, 'thirst', math.random(300000, 600000))
+                        TriggerClientEvent('esx_basicneeds:onDrink', soursrcce)
                     end
                 end
             end)
@@ -389,11 +389,11 @@ function RegisterUsableItem(item, foodordrink, eventtotrigger, removeitem)
                     TriggerEvent(eventtotrigger, item, src)
                 else
                     if foodordrink == "food" then
-                        TriggerClientEvent('esx_status:add', source, 'hunger', math.random(300000, 600000))
-                        TriggerClientEvent('esx_basicneeds:onEat', source)
+                        TriggerClientEvent('esx_status:add', src, 'hunger', math.random(300000, 600000))
+                        TriggerClientEvent('esx_basicneeds:onEat', src)
                     else
-                        TriggerClientEvent('esx_status:add', source, 'thirst', math.random(300000, 600000))
-                        TriggerClientEvent('esx_basicneeds:onDrink', source)
+                        TriggerClientEvent('esx_status:add', src, 'thirst', math.random(300000, 600000))
+                        TriggerClientEvent('esx_basicneeds:onDrink', src)
                     end
                 end
             end)
@@ -453,11 +453,11 @@ function RegisterUsableItem(item, foodordrink, eventtotrigger, removeitem)
                     TriggerEvent(eventtotrigger, item, src)
                 else
                     if foodordrink == "food" then
-                        TriggerClientEvent('esx_status:add', source, 'hunger', math.random(300000, 600000))
-                        TriggerClientEvent('esx_basicneeds:onEat', source)
+                        TriggerClientEvent('esx_status:add', src, 'hunger', math.random(300000, 600000))
+                        TriggerClientEvent('esx_basicneeds:onEat', src)
                     else
-                        TriggerClientEvent('esx_status:add', source, 'thirst', math.random(300000, 600000))
-                        TriggerClientEvent('esx_basicneeds:onDrink', source)
+                        TriggerClientEvent('esx_status:add', src, 'thirst', math.random(300000, 600000))
+                        TriggerClientEvent('esx_basicneeds:onDrink', src)
                     end
                 end
             end)

@@ -61,11 +61,11 @@ exports("GetCurrentJobGrade", GetCurrentJobGrade)
 -- Progress Bar Functions
 --------------------------------------------------------------------------------------------------------------
 function ProgressBar(time, label)
-    if SDC.UseProgBar == "progressBars" then
+    if SDC.ProgressBar == "progressBars" then
         exports['progressBars']:startUI(time, label)
         Wait(time)
         return true
-    elseif SDC.UseProgBar == "mythic_progbar" then
+    elseif SDC.ProgressBar == "mythic_progbar" then
         TriggerEvent("mythic_progbar:client:progress", {
             name = "sdc_foodtrucks",
             duration = time,
@@ -81,7 +81,7 @@ function ProgressBar(time, label)
         })
         Wait(time)
         return true
-    elseif SDC.UseProgBar == "ox_lib" then
+    elseif SDC.ProgressBar == "ox_lib" then
         if lib.progressBar({
             duration = time,
             label =  label,
@@ -99,8 +99,6 @@ function ProgressBar(time, label)
     end
 end
 exports("ProgressBar", ProgressBar)
-exports("DoProgressbar", ProgressBar)
-exports("Progressbar", ProgressBar)
 
 --------------------------------------------------------------------------------------------------------------
 -- Notification Functions
