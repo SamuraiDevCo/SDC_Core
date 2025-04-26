@@ -162,6 +162,68 @@ function GetPlayerJob(src)
 end
 exports("GetPlayerJob", GetPlayerJob)
 
+function GetPlayerJobGradeName(src)
+    if SDC.Framework == "qb-core" then
+        local Player = QBCore.Functions.GetPlayer(src)
+        if Player and Player.PlayerData and Player.PlayerData.job then
+            return Player.PlayerData.job.grade.name
+        else
+            return ""
+        end
+    elseif SDC.Framework == "esx" then
+        local xPlayer = ESX.GetPlayerFromId(src)
+        if xPlayer and xPlayer.job then
+            return xPlayer.job.grade_label
+        else
+            return ""
+        end
+    elseif SDC.Framework == "qbx-core" then
+        local Player = exports.qbx_core:GetPlayer(src)
+        if Player and Player.PlayerData and Player.PlayerData.job then
+            return Player.PlayerData.job.grade.name
+        else
+            return ""
+        end
+    elseif SDC.Framework == "custom" then
+        --Here is where you would put your custom code for your custom framework
+
+    end
+end
+exports("GetPlayerJobGradeName", GetPlayerJobGradeName)
+
+
+function GetPlayerFullName(src)
+    if SDC.Framework == "qb-core" then
+        local Player = QBCore.Functions.GetPlayer(src)
+        if Player and Player.PlayerData and Player.PlayerData.charinfo then
+            return Player.PlayerData.charinfo.firstname.." "..Player.PlayerData.charinfo.lastname
+        else
+            return ""
+        end
+    elseif SDC.Framework == "esx" then
+        local xPlayer = ESX.GetPlayerFromId(src)
+        if xPlayer and xPlayer.name then
+            return xPlayer.name
+        else
+            return ""
+        end
+    elseif SDC.Framework == "qbx-core" then
+        local Player = exports.qbx_core:GetPlayer(src)
+        if Player and Player.PlayerData and Player.PlayerData.charinfo then
+            return Player.PlayerData.charinfo.firstname.." "..Player.PlayerData.charinfo.lastname
+        else
+            return ""
+        end
+    elseif SDC.Framework == "custom" then
+        --Here is where you would put your custom code for your custom framework
+
+    end
+end
+exports("GetPlayerFullName", GetPlayerFullName)
+
+
+
+
 --------------------------------------------------------------------------------------------------------------
 -- Inventory Functions
 --------------------------------------------------------------------------------------------------------------

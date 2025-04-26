@@ -58,6 +58,11 @@ SDC.GarageResource = "framework" --[[ SET UP YOUR GARAGE RESOURCE HERE
     "framework" --This will use the base framework garage resource setup
 
 ]]
+SDC.DefaultGarage = "legionsquare" --[[ Choose Your Default Garage Here
+
+    Can be any of the garage names set inside your garage resource
+
+]]
 
 SDC.FuelResource = "none" --[[ SET UP YOUR FUEL RESOURCE HERE
 
