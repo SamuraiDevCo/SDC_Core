@@ -159,12 +159,22 @@ end
 exports("GiveVehicleFuel", GiveVehicleFuel)
 
 function GiveKeysToVehicle(veh)
-    if SDC.Framework == "qb-core" then
-        TriggerEvent("vehiclekeys:client:SetOwner", QBCore.Functions.GetPlate(veh))
-    elseif SDC.Framework == "qbx-core" then
-        TriggerServerEvent("SDC_CORE:Server:GiveVehKeys", NetworkGetNetworkIdFromEntity(veh))
-    else
-        --Here is where you would put your resource for vehicle keys!
+    if SDC.VehicleKeys == "framework" then
+        if SDC.Framework == "qb-core" then
+            TriggerEvent("vehiclekeys:client:SetOwner", QBCore.Functions.GetPlate(veh))
+        elseif SDC.Framework == "qbx-core" then
+            TriggerServerEvent("SDC_CORE:Server:GiveVehKeys", NetworkGetNetworkIdFromEntity(veh))
+        end
+    elseif SDC.VehicleKeys == "wasabi" then
+        if SDC.Framework == "esx" then
+            exports.wasabi_carlock:GiveKey(TrimVehiclePlate(GetVehicleNumberPlateText(veh)))
+        elseif SDC.Framework == "qb-core" then
+            exports.wasabi_carlock:GiveKey(QBCore.Functions.GetPlate(veh))
+        else
+            exports.wasabi_carlock:GiveKey(GetVehicleNumberPlateText(veh))
+        end
+    elseif SDC.VehicleKeys == "custom" then
+        --Here is where you would put your custom code for your custom resource
 
     end
 end

@@ -56,6 +56,7 @@ SDC.GarageResource = "framework" --[[ SET UP YOUR GARAGE RESOURCE HERE
     Can Be Anyone Of The Following Options Below:
 
     "framework" --This will use the base framework garage resource setup
+    "qs-advancedgarages" --This will use the quasar advanced garages setup
 
 ]]
 SDC.DefaultGarage = "legionsquare" --[[ Choose Your Default Garage Here
@@ -63,6 +64,17 @@ SDC.DefaultGarage = "legionsquare" --[[ Choose Your Default Garage Here
     Can be any of the garage names set inside your garage resource
 
 ]]
+
+SDC.VehicleKeys = "framework" --[[ SET UP YOUR VEHICLE KEYS RESOURCE HERE
+
+    Can Be Anyone Of The Following Options Below:
+
+    "framework" --This will use the base framework vehicle keys resource setup
+    "wasabi" -- This will use the wasabi vehicle keys setup
+    "custom" -- This is where you would input all your own functions for your resource!
+
+]]
+
 
 SDC.FuelResource = "none" --[[ SET UP YOUR FUEL RESOURCE HERE
 

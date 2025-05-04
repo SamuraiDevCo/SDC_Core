@@ -606,6 +606,53 @@ function SaveVehicleInDatabase(src, plate, vdata, vmodel)
             --Here is where you would put your custom code for your custom framework
 
         end
+    elseif SDC.GarageResource == "qs-advancedgarages" then
+        if SDC.Framework == "qb-core" then
+            local Player = QBCore.Functions.GetPlayer(src)
+            MySQL.insert('INSERT INTO player_vehicles (license, citizenid, vehicle, hash, mods, plate, garage) VALUES (?, ?, ?, ?, ?, ?, ?)',
+                {
+                    Player.PlayerData.license,
+                    Player.PlayerData.citizenid,
+                    vmodel,
+                    GetHashKey(vmodel),
+                    json.encode(vdata),
+                    plate,
+                    SDC.DefaultGarage
+                }
+            )
+        elseif SDC.Framework == "esx" then
+            local xPlayer = ESX.GetPlayerFromId(src)
+            MySQL.insert('INSERT INTO owned_vehicles (owner, tag, plate, vehicle, type, garage, impound_data, favorite, stored) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                {
+                    xPlayer.identifier,
+                    nil,
+                    plate,
+                    json.encode(vdata),
+                    "car",
+                    SDC.DefaultGarage,
+                    nil,
+                    nil,
+                    1
+                }
+            )
+        elseif SDC.Framework == "qbx-core" then
+            local Player = exports.qbx_core:GetPlayer(src)
+            MySQL.insert('INSERT INTO player_vehicles (license, citizenid, vehicle, hash, mods, plate, fakeplate, garage) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+                {
+                    Player.PlayerData.license,
+                    Player.PlayerData.citizenid,
+                    vmodel,
+                    GetHashKey(vmodel),
+                    json.encode(vdata),
+                    plate,
+                    nil,
+                    SDC.DefaultGarage
+                }
+            )
+        elseif SDC.Framework == "custom" then
+            --Here is where you would put your custom code for your custom framework
+
+        end
     end
 end
 exports("SaveVehicleInDatabase", SaveVehicleInDatabase)
