@@ -555,6 +555,42 @@ function RegisterUsableItem(item, foodordrink, eventtotrigger, removeitem)
 end
 exports("RegisterUsableItem", RegisterUsableItem)
 
+function GetInventoryItems(src)
+    if SDC.Inventory == "framework" then
+        if SDC.Framework == "qb-core" then
+            local Player = QBCore.Functions.GetPlayer(src)
+            
+        elseif SDC.Framework == "esx" then
+            local xPlayer = ESX.GetPlayerFromId(src)
+
+        elseif SDC.Framework == "qbx-core" then
+            return exports.ox_inventory:GetInventoryItems(src)
+        elseif SDC.Framework == "custom" then
+            --Here is where you would put your custom code for your custom framework
+
+        end
+    elseif SDC.Inventory == "ox_inventory" then
+        return exports.ox_inventory:GetInventoryItems(src)
+    elseif SDC.Inventory == "quasar-inventory" then
+
+    end
+end
+exports("GetInventoryItems", GetInventoryItems)
+
+function GetSlotFromInventory(src, slot) ---For Custom Resource, Ignore For Regular Users
+    if SDC.Inventory == "ox_inventory" then
+        return exports.ox_inventory:GetSlot(src, slot)
+    end
+end
+exports("GetSlotFromInventory", GetSlotFromInventory)
+
+function SetItemMetadata(src, item, slot, data)  ---For Custom Resource, Ignore For Regular Users
+    if SDC.Inventory == "ox_inventory" then
+        return exports.ox_inventory:SetMetadata(src, slot, data)
+    end
+end
+exports("SetItemMetadata", SetItemMetadata)
+
 --------------------------------------------------------------------------------------------------------------
 -- Garage Functions
 --------------------------------------------------------------------------------------------------------------
@@ -647,6 +683,36 @@ function SaveVehicleInDatabase(src, plate, vdata, vmodel)
                     plate,
                     nil,
                     SDC.DefaultGarage
+                }
+            )
+        elseif SDC.Framework == "custom" then
+            --Here is where you would put your custom code for your custom framework
+
+        end
+    elseif SDC.GarageResource == "lunar_garage" then
+        if SDC.Framework == "qb-core" then
+            local Player = QBCore.Functions.GetPlayer(src)
+            MySQL.insert('INSERT INTO player_vehicles (license, citizenid, vehicle, hash, mods, plate, garage) VALUES (?, ?, ?, ?, ?, ?, ?)',
+                {
+                    Player.PlayerData.license,
+                    Player.PlayerData.citizenid,
+                    vmodel,
+                    GetHashKey(vmodel),
+                    json.encode(vdata),
+                    plate,
+                    SDC.DefaultGarage
+                }
+            )
+        elseif SDC.Framework == "esx" then
+            local xPlayer = ESX.GetPlayerFromId(src)
+            MySQL.insert('INSERT INTO owned_vehicles (owner, plate, vehicle, type, job, stored) VALUES (?, ?, ?, ?, ?, ?)',
+                {
+                    xPlayer.identifier,
+                    plate,
+                    json.encode(vdata),
+                    "car",
+                    "civ",
+                    1
                 }
             )
         elseif SDC.Framework == "custom" then

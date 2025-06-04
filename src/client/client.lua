@@ -147,6 +147,22 @@ end
 exports("ShowNotification", ShowNotification)
 
 --------------------------------------------------------------------------------------------------------------
+-- Inventory Functions
+--------------------------------------------------------------------------------------------------------------
+function GetCurrentWeaponItem()
+    if SDC.Inventory == "framework" then
+        if SDC.Framework == "qbx-core" then
+            return exports.ox_inventory:getCurrentWeapon()
+        elseif SDC.Framework == "custom" then
+            --Here is where you would put your custom code for your custom framework
+        end
+    elseif SDC.Inventory == "ox_inventory" then
+        return exports.ox_inventory:getCurrentWeapon()
+    end
+end
+exports("GetCurrentWeaponItem", GetCurrentWeaponItem)
+
+--------------------------------------------------------------------------------------------------------------
 -- Vehicle Functions
 --------------------------------------------------------------------------------------------------------------
 function GiveVehicleFuel(veh)

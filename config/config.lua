@@ -3,7 +3,7 @@ SDC = {}
 ---------------------------------------------------------------------------------
 -------------------------------Important Configs---------------------------------
 ---------------------------------------------------------------------------------
-SDC.Framework = "qb-core" --[[ SET UP YOUR FRAMEWORK HERE
+SDC.Framework = "esx" --[[ SET UP YOUR FRAMEWORK HERE
 
     Can Be Anyone Of The Following Options Below:
 
@@ -14,7 +14,7 @@ SDC.Framework = "qb-core" --[[ SET UP YOUR FRAMEWORK HERE
 
 ]]
 
-SDC.Inventory = "framework" --[[ SET UP YOUR INVENTORY HERE
+SDC.Inventory = "ox_inventory" --[[ SET UP YOUR INVENTORY HERE
 
     Can Be Anyone Of The Following Options Below:
 
@@ -24,7 +24,7 @@ SDC.Inventory = "framework" --[[ SET UP YOUR INVENTORY HERE
 
 ]]
 
-SDC.NotificationSystem = "framework" --[[ SET UP YOUR NOTIFICATIONS HERE
+SDC.NotificationSystem = "ox_lib" --[[ SET UP YOUR NOTIFICATIONS HERE
 
     Can Be Anyone Of The Following Options Below:
 
@@ -57,6 +57,7 @@ SDC.GarageResource = "framework" --[[ SET UP YOUR GARAGE RESOURCE HERE
 
     "framework" --This will use the base framework garage resource setup
     "qs-advancedgarages" --This will use the quasar advanced garages setup
+    "lunar_garage" --This will use the lunar garages setup
 
 ]]
 SDC.DefaultGarage = "legionsquare" --[[ Choose Your Default Garage Here
