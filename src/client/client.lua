@@ -189,6 +189,22 @@ function GiveKeysToVehicle(veh)
         else
             exports.wasabi_carlock:GiveKey(GetVehicleNumberPlateText(veh))
         end
+    elseif SDC.VehicleKeys == "qs-vehiclekeys" then
+        if SDC.Framework == "esx" then
+            exports['qs-vehiclekeys']:GiveKeys(TrimVehiclePlate(GetVehicleNumberPlateText(veh)), GetEntityModel(veh), true)
+        elseif SDC.Framework == "qb-core" then
+            exports['qs-vehiclekeys']:GiveKeys(QBCore.Functions.GetPlate(veh), GetEntityModel(veh), true)
+        else
+            exports['qs-vehiclekeys']:GiveKeys(GetVehicleNumberPlateText(veh), GetEntityModel(veh), true)
+        end
+    elseif SDC.VehicleKeys == "mrnewb-vehiclekeys" then
+        if SDC.Framework == "esx" then
+            exports.MrNewbVehicleKeys:GiveKeys(veh)
+        elseif SDC.Framework == "qb-core" then
+            exports.MrNewbVehicleKeys:GiveKeys(veh)
+        else
+            exports.MrNewbVehicleKeys:GiveKeys(veh)
+        end
     elseif SDC.VehicleKeys == "custom" then
         --Here is where you would put your custom code for your custom resource
 

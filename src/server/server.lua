@@ -246,6 +246,8 @@ function GiveItem(src, item, amt)
         exports.ox_inventory:AddItem(src, item, amt)
     elseif SDC.Inventory == "quasar-inventory" then
         exports['qs-inventory']:AddItem(src, item, amt)
+    elseif SDC.Inventory == "mInventory" then
+        exports['codem-inventory']:AddItem(src, item, amt)
     end
 end
 exports("GiveItem", GiveItem)
@@ -269,6 +271,8 @@ function RemoveItem(src, item, amt)
         exports.ox_inventory:RemoveItem(src, item, amt)
     elseif SDC.Inventory == "quasar-inventory" then
         exports['qs-inventory']:RemoveItem(src, item, amt)
+    elseif SDC.Inventory == "mInventory" then
+        exports['codem-inventory']:RemoveItem(src, item, amt)
     end
 end
 exports("RemoveItem", RemoveItem)
@@ -307,6 +311,12 @@ function HasItemAmt(src, item, amt)
         end
     elseif SDC.Inventory == "quasar-inventory" then
         if exports['qs-inventory']:GetItemTotalAmount(src, item) and exports['qs-inventory']:GetItemTotalAmount(src, item) >= amt then
+            return true
+        else
+            return false
+        end
+    elseif SDC.Inventory == "mInventory" then
+        if exports['codem-inventory']:HasItem(src, item, amt) then
             return true
         else
             return false
@@ -350,6 +360,12 @@ function GetItemAmt(src, item)
     elseif SDC.Inventory == "quasar-inventory" then
         if exports['qs-inventory']:GetItemTotalAmount(src, item) and exports['qs-inventory']:GetItemTotalAmount(src, item) > 0 then
             return exports['qs-inventory']:GetItemTotalAmount(src, item)
+        else
+            return 0
+        end
+    elseif SDC.Inventory == "mInventory" then
+        if exports['codem-inventory']:GetItemsTotalAmount(src, item) and exports['codem-inventory']:GetItemsTotalAmount(src, item) > 0 then
+            return exports['codem-inventory']:GetItemsTotalAmount(src, item)
         else
             return 0
         end
@@ -551,6 +567,71 @@ function RegisterUsableItem(item, foodordrink, eventtotrigger, removeitem)
             --Here is where you would put your custom code for your custom framework
 
         end
+    elseif SDC.Inventory == "mInventory" then
+        if SDC.Framework == "qb-core" then
+            QBCore.Functions.CreateUseableItem(item, function(source, itemi)
+                local src = source
+                local Player = QBCore.Functions.GetPlayer(src)
+                if removeitem then
+                    Player.Functions.RemoveItem(item, 1)
+                end
+                if eventtotrigger then
+                    TriggerEvent(eventtotrigger, item, src)
+                else
+                    if foodordrink == "food" then
+                        TriggerClientEvent("consumables:client:Eat", src, item)
+                    else
+                        TriggerClientEvent("consumables:client:Drink", src, item)
+                    end
+                end
+            end)
+        elseif SDC.Framework == "esx" then
+            ESX.RegisterUsableItem(item, function(src)
+                local xPlayer = ESX.GetPlayerFromId(src)
+                if removeitem then
+                    xPlayer.removeInventoryItem(item, 1)
+                end
+                if eventtotrigger then
+                    TriggerEvent(eventtotrigger, item, src)
+                else
+                    xPlayer.removeInventoryItem(item, 1)
+                    if foodordrink == "food" then
+                        TriggerClientEvent('esx_status:add', src, 'hunger', math.random(300000, 600000))
+                        TriggerClientEvent('esx_basicneeds:onEat', src)
+                    else
+                        TriggerClientEvent('esx_status:add', src, 'thirst', math.random(300000, 600000))
+                        TriggerClientEvent('esx_basicneeds:onDrink', soursrcce)
+                    end
+                end
+            end)
+        elseif SDC.Framework == "qbx-core" then
+            exports.qbx_core:CreateUseableItem(item, function(source, itemi)
+                local src = source
+                if removeitem then
+                    exports.ox_inventory:RemoveItem(src, item, 1)
+                end
+                if eventtotrigger then
+                    TriggerEvent(eventtotrigger, item, src)
+                else
+                    if foodordrink == "food" then
+                        local ate = lib.callback.await('consumables:client:Eat', src, nil, nil)
+                        if not ate then return end
+                
+                        local sustenance = math.random(35, 55)
+                        exports.qbx_smallresources:AddHunger(src, sustenance)
+                    else
+                        local ate = lib.callback.await('consumables:client:Drink', src, nil, nil)
+                        if not ate then return end
+                
+                        local sustenance = math.random(35, 55)
+                        exports.qbx_smallresources:AddThirst(src, sustenance)
+                    end
+                end
+            end)
+        elseif SDC.Framework == "custom" then
+            --Here is where you would put your custom code for your custom framework
+
+        end
     end
 end
 exports("RegisterUsableItem", RegisterUsableItem)
@@ -573,6 +654,8 @@ function GetInventoryItems(src)
         return exports.ox_inventory:GetInventoryItems(src)
     elseif SDC.Inventory == "quasar-inventory" then
 
+    elseif SDC.Inventory == "mInventory" then
+        
     end
 end
 exports("GetInventoryItems", GetInventoryItems)

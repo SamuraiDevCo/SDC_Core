@@ -21,6 +21,7 @@ SDC.Inventory = "ox_inventory" --[[ SET UP YOUR INVENTORY HERE
     "framework" --This will utilize the base inventory functions for the framework selected above
     "ox_inventory" --This will utilize ox_inventory functions
     "quasar-inventory" --This will utilize quasar-inventory functions
+    "mInventory" --This will utilize mInventory functions
 
 ]]
 
@@ -72,6 +73,8 @@ SDC.VehicleKeys = "framework" --[[ SET UP YOUR VEHICLE KEYS RESOURCE HERE
 
     "framework" --This will use the base framework vehicle keys resource setup
     "wasabi" -- This will use the wasabi vehicle keys setup
+    "qs-vehiclekeys" -- This will use the qs-vehicle keys setup
+    "mrnewb-vehiclekeys" -- This will use the qs-vehicle keys setup
     "custom" -- This is where you would input all your own functions for your resource!
 
 ]]
