@@ -32,6 +32,13 @@ function GetCurrentJob()
         else
             return ""
         end
+    elseif SDC.Framework == "nd-core" then
+        local PlayerData = exports["ND_Core"]:getPlayer()
+        if PlayerData and PlayerData.job then
+            return PlayerData.job
+        else
+            return ""
+        end
     elseif SDC.Framework == "custom" then
         --Here is where you would put your custom code for your custom framework
 
@@ -49,6 +56,9 @@ function GetCurrentJobGrade()
     elseif SDC.Framework == "qbx-core" then
         local PlayerData = exports.qbx_core:GetPlayerData()
         return PlayerData.job.grade.level
+    elseif SDC.Framework == "nd-core" then
+        local PlayerData = exports["ND_Core"]:getPlayer()
+        return PlayerData.jobInfo.rank
     elseif SDC.Framework == "custom" then
         --Here is where you would put your custom code for your custom framework
 
@@ -138,6 +148,12 @@ function ShowNotification(msg, extra)
             ESX.ShowNotification(msg)
         elseif SDC.Framework == "qbx-core" then
             exports.qbx_core:Notify(msg, extra)
+        elseif SDC.Framework == "nd-core" then
+            lib.notify({
+                title = "SDC Resources",
+                description = msg,
+                type = "inform"
+            })
         elseif SDC.Framework == "custom" then
             --Here is where you would put your custom code for your custom framework
 
@@ -152,6 +168,8 @@ exports("ShowNotification", ShowNotification)
 function GetCurrentWeaponItem()
     if SDC.Inventory == "framework" then
         if SDC.Framework == "qbx-core" then
+            return exports.ox_inventory:getCurrentWeapon()
+        elseif SDC.Framework == "nd-core" then
             return exports.ox_inventory:getCurrentWeapon()
         elseif SDC.Framework == "custom" then
             --Here is where you would put your custom code for your custom framework
@@ -168,6 +186,8 @@ exports("GetCurrentWeaponItem", GetCurrentWeaponItem)
 function GiveVehicleFuel(veh)
     if SDC.FuelResource == "none" then
         --Leave Blank
+    elseif SDC.FuelResource == "MSK_Fuel" then
+        exports["msk_fuel"]:SetVehicleFuel(veh, 100.0)
     else
         exports[SDC.FuelResource]:SetFuel(veh, 100.0)
     end
@@ -179,6 +199,8 @@ function GiveKeysToVehicle(veh)
         if SDC.Framework == "qb-core" then
             TriggerEvent("vehiclekeys:client:SetOwner", QBCore.Functions.GetPlate(veh))
         elseif SDC.Framework == "qbx-core" then
+            TriggerServerEvent("SDC_CORE:Server:GiveVehKeys", NetworkGetNetworkIdFromEntity(veh))
+        elseif SDC.Framework == "nd-core" then
             TriggerServerEvent("SDC_CORE:Server:GiveVehKeys", NetworkGetNetworkIdFromEntity(veh))
         end
     elseif SDC.VehicleKeys == "wasabi" then
@@ -235,6 +257,8 @@ function SetVehicleProperties(veh, props)
         ESX.Game.SetVehicleProperties(veh, props)
     elseif SDC.Framework == "qbx-core" then
         lib.setVehicleProperties(veh, props)
+    elseif SDC.Framework == "nd-core" then
+        lib.setVehicleProperties(veh, props)
     elseif SDC.Framework == "custom" then
         --Here is where you would put your custom code for your custom framework
 
@@ -248,6 +272,8 @@ function GetVehicleProperties(veh)
     elseif SDC.Framework == "esx" then
         return ESX.Game.GetVehicleProperties(veh)
     elseif SDC.Framework == "qbx-core" then
+        return lib.getVehicleProperties(veh)
+    elseif SDC.Framework == "nd-core" then
         return lib.getVehicleProperties(veh)
     elseif SDC.Framework == "custom" then
         --Here is where you would put your custom code for your custom framework

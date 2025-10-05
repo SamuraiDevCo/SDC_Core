@@ -19,6 +19,9 @@ function GetCurrentBankAmount(src)
         return xPlayer.getAccount('bank').money
     elseif SDC.Framework == "qbx-core" then
         return exports.qbx_core:GetMoney(src, "bank")
+    elseif SDC.Framework == "nd-core" then
+        local Player = exports["ND_Core"]:getPlayer(src)
+        return Player.bank
     elseif SDC.Framework == "custom" then
         --Here is where you would put your custom code for your custom framework
 
@@ -35,6 +38,9 @@ function RemoveBankMoney(src, amt)
         return xPlayer.removeAccountMoney('bank', amt)
     elseif SDC.Framework == "qbx-core" then
         return exports.qbx_core:RemoveMoney(src, "bank", amt)
+    elseif SDC.Framework == "nd-core" then
+        local Player = exports["ND_Core"]:getPlayer(src)
+        return Player.deductMoney("bank", amt)
     elseif SDC.Framework == "custom" then
         --Here is where you would put your custom code for your custom framework
     end
@@ -50,6 +56,9 @@ function AddBankAmount(src, amt)
         xPlayer.addAccountMoney('bank', amt)
     elseif SDC.Framework == "qbx-core" then
         exports.qbx_core:AddMoney(src, "bank", amt)
+    elseif SDC.Framework == "nd-core" then
+        local Player = exports["ND_Core"]:getPlayer(src)
+        Player.addMoney("bank", amt)
     elseif SDC.Framework == "custom" then
         --Here is where you would put your custom code for your custom framework
 
@@ -66,6 +75,9 @@ function GetCurrentCashAmount(src)
         return xPlayer.getAccount('money').money
     elseif SDC.Framework == "qbx-core" then
         return exports.qbx_core:GetMoney(src, "cash")
+    elseif SDC.Framework == "nd-core" then
+        local Player = exports["ND_Core"]:getPlayer(src)
+        return Player.cash
     elseif SDC.Framework == "custom" then
         --Here is where you would put your custom code for your custom framework
 
@@ -82,6 +94,9 @@ function RemoveCashMoney(src, amt)
         xPlayer.removeAccountMoney('money', amt)
     elseif SDC.Framework == "qbx-core" then
         exports.qbx_core:RemoveMoney(src, "cash", amt)
+    elseif SDC.Framework == "nd-core" then
+        local Player = exports["ND_Core"]:getPlayer(src)
+        Player.deductMoney("cash", amt)
     elseif SDC.Framework == "custom" then
         --Here is where you would put your custom code for your custom framework
     end
@@ -97,6 +112,9 @@ function AddCashAmount(src, amt)
         xPlayer.addAccountMoney('money', amt)
     elseif SDC.Framework == "qbx-core" then
         exports.qbx_core:AddMoney(src, "cash", amt)
+    elseif SDC.Framework == "nd-core" then
+        local Player = exports["ND_Core"]:getPlayer(src)
+        Player.addMoney("cash", amt)
     elseif SDC.Framework == "custom" then
         --Here is where you would put your custom code for your custom framework
 
@@ -123,6 +141,13 @@ function GetOwnerTag(src)
         local Player = exports.qbx_core:GetPlayer(src)
         if Player then
             return Player.PlayerData.citizenid
+        else
+            return nil
+        end
+    elseif SDC.Framework == "nd-core" then
+        local Player = exports["ND_Core"]:getPlayer(src)
+        if Player then
+            return Player.identifier
         else
             return nil
         end
@@ -155,6 +180,18 @@ function GetPlayerJob(src)
         else
             return ""
         end
+    elseif SDC.Framework == "nd-core" then
+        local Player = exports["ND_Core"]:getPlayer(src)
+        if Player then
+            local name, _ = Player.getJob()
+            if name then
+                return name
+            else
+                return ""
+            end
+        else
+            return ""
+        end
     elseif SDC.Framework == "custom" then
         --Here is where you would put your custom code for your custom framework
 
@@ -181,6 +218,13 @@ function GetPlayerJobGradeName(src)
         local Player = exports.qbx_core:GetPlayer(src)
         if Player and Player.PlayerData and Player.PlayerData.job then
             return Player.PlayerData.job.grade.name
+        else
+            return ""
+        end
+    elseif SDC.Framework == "nd-core" then
+        local Player = exports["ND_Core"]:getPlayer(src)
+        if Player and Player.jobInfo then
+            return Player.jobInfo.rankName
         else
             return ""
         end
@@ -214,6 +258,13 @@ function GetPlayerFullName(src)
         else
             return ""
         end
+    elseif SDC.Framework == "nd-core" then
+        local Player = exports["ND_Core"]:getPlayer(src)
+        if Player and Player.fullname then
+            return Player.fullname
+        else
+            return ""
+        end
     elseif SDC.Framework == "custom" then
         --Here is where you would put your custom code for your custom framework
 
@@ -238,6 +289,8 @@ function GiveItem(src, item, amt)
             xPlayer.addInventoryItem(item, amt)
         elseif SDC.Framework == "qbx-core" then
             exports.ox_inventory:AddItem(src, item, amt)
+        elseif SDC.Framework == "nd-core" then
+            exports.ox_inventory:AddItem(src, item, amt) 
         elseif SDC.Framework == "custom" then
             --Here is where you would put your custom code for your custom framework
 
@@ -262,6 +315,8 @@ function RemoveItem(src, item, amt)
             local xPlayer = ESX.GetPlayerFromId(src)
             xPlayer.removeInventoryItem(item, amt)
         elseif SDC.Framework == "qbx-core" then
+            exports.ox_inventory:RemoveItem(src, item, amt)
+        elseif SDC.Framework == "nd-core" then
             exports.ox_inventory:RemoveItem(src, item, amt)
         elseif SDC.Framework == "custom" then
             --Here is where you would put your custom code for your custom framework
@@ -294,6 +349,12 @@ function HasItemAmt(src, item, amt)
                 return false
             end
         elseif SDC.Framework == "qbx-core" then
+            if exports.ox_inventory:GetItemCount(src, item) and exports.ox_inventory:GetItemCount(src, item) >= amt then
+                return true
+            else
+                return false
+            end
+        elseif SDC.Framework == "nd-core" then
             if exports.ox_inventory:GetItemCount(src, item) and exports.ox_inventory:GetItemCount(src, item) >= amt then
                 return true
             else
@@ -342,6 +403,12 @@ function GetItemAmt(src, item)
                 return 0
             end
         elseif SDC.Framework == "qbx-core" then
+            if exports.ox_inventory:GetItemCount(src, item) and exports.ox_inventory:GetItemCount(src, item) > 0 then
+                return exports.ox_inventory:GetItemCount(src, item)
+            else
+                return 0
+            end
+        elseif SDC.Framework == "nd-core" then
             if exports.ox_inventory:GetItemCount(src, item) and exports.ox_inventory:GetItemCount(src, item) > 0 then
                 return exports.ox_inventory:GetItemCount(src, item)
             else
@@ -646,6 +713,8 @@ function GetInventoryItems(src)
 
         elseif SDC.Framework == "qbx-core" then
             return exports.ox_inventory:GetInventoryItems(src)
+        elseif SDC.Framework == "nd-core" then
+            return exports.ox_inventory:GetInventoryItems(src)
         elseif SDC.Framework == "custom" then
             --Here is where you would put your custom code for your custom framework
 
@@ -721,6 +790,15 @@ function SaveVehicleInDatabase(src, plate, vdata, vmodel)
                     SDC.DefaultGarage
                 }
             )
+        elseif SDC.Framework == "nd-core" then
+            local Player = exports["ND_Core"]:getPlayer(src)
+            MySQL.insert('INSERT INTO nd_vehicles (owner, plate, properties) VALUES (?, ?, ?)',
+                {
+                    Player.identifier,
+                    plate,
+                    json.encode(vdata)
+                }
+            )
         elseif SDC.Framework == "custom" then
             --Here is where you would put your custom code for your custom framework
 
@@ -768,6 +846,15 @@ function SaveVehicleInDatabase(src, plate, vdata, vmodel)
                     SDC.DefaultGarage
                 }
             )
+        elseif SDC.Framework == "nd-core" then
+            local Player = exports["ND_Core"]:getPlayer(src)
+            MySQL.insert('INSERT INTO nd_vehicles (owner, plate, properties) VALUES (?, ?, ?)',
+                {
+                    Player.identifier,
+                    plate,
+                    json.encode(vdata)
+                }
+            )
         elseif SDC.Framework == "custom" then
             --Here is where you would put your custom code for your custom framework
 
@@ -798,6 +885,32 @@ function SaveVehicleInDatabase(src, plate, vdata, vmodel)
                     1
                 }
             )
+        elseif SDC.Framework == "nd-core" then
+            local Player = exports["ND_Core"]:getPlayer(src)
+            MySQL.insert('INSERT INTO nd_vehicles (owner, plate, properties) VALUES (?, ?, ?)',
+                {
+                    Player.identifier,
+                    plate,
+                    json.encode(vdata)
+                }
+            )
+        elseif SDC.Framework == "custom" then
+            --Here is where you would put your custom code for your custom framework
+
+        end
+    elseif SDC.GarageResource == "vms_garages" then
+        if SDC.Framework == "qb-core" then
+            local Player = QBCore.Functions.GetPlayer(src)
+            exports["vms_garagesv2"]:giveVehicle(src, Player.PlayerData.citizenid, "vehicle", vmodel, plate)
+        elseif SDC.Framework == "esx" then
+            local xPlayer = ESX.GetPlayerFromId(src)
+            exports["vms_garagesv2"]:giveVehicle(src, xPlayer.identifier, "vehicle", vmodel, plate)
+        elseif SDC.Framework == "qbx-core" then
+            local Player = exports.qbx_core:GetPlayer(src)
+            exports["vms_garagesv2"]:giveVehicle(src, Player.PlayerData.citizenid, "vehicle", vmodel, plate)
+        elseif SDC.Framework == "nd-core" then
+            local Player = exports["ND_Core"]:getPlayer(src)
+            exports["vms_garagesv2"]:giveVehicle(src, Player.identifier, "vehicle", vmodel, plate)
         elseif SDC.Framework == "custom" then
             --Here is where you would put your custom code for your custom framework
 
@@ -884,6 +997,12 @@ function GetRandomPlate()
                         newPlate = tempPlate
                     end
                 end)
+            elseif SDC.Framework == "nd-core" then
+                MySQL.query('SELECT * from nd_vehicles WHERE plate = ?', {tempPlate}, function(result)                
+                    if not result or not result[1] then
+                        newPlate = tempPlate
+                    end
+                end)
             elseif SDC.Framework == "custom" then
                 --Here is where you would put your custom code for your custom framework
 
@@ -966,6 +1085,29 @@ function GetRandomPlate()
                 Wait(500)
             until newPlate
             return newPlate
+        elseif SDC.Framework == "nd-core" then
+            local newPlate = nil
+            repeat
+                local tempPlate = ""
+                if not newPlate then
+                    for i=1, 8 do
+                        local lorn = 0
+                        lorn = math.random(1, 2)
+                        if lorn == 1 then
+                            tempPlate = tempPlate..(math.random(1,9))
+                        else
+                            tempPlate = tempPlate..letterTable[math.random(1,26)]
+                        end
+                    end
+                end
+                MySQL.query('SELECT * from nd_vehicles WHERE plate = ?', {tempPlate}, function(result)                
+                    if not result or not result[1] then
+                        newPlate = tempPlate
+                    end
+                end)
+                Wait(500)
+            until newPlate
+            return newPlate
         elseif SDC.Framework == "custom" then
             --Here is where you would put your custom code for your custom framework
 
@@ -982,6 +1124,8 @@ AddEventHandler("SDC_CORE:Server:GiveVehKeys", function(netid)
     local src = source
     if SDC.Framework == "qbx-core" then
         exports.qbx_vehiclekeys:GiveKeys(src, netid)
+    elseif SDC.Framework == "nd-core" then
+        exports["ND_Core"]:giveVehicleAccess(src, NetworkGetEntityFromNetworkId(netid), true, {netId = netid})
     elseif SDC.Framework == "custom" then
         --Here is where you would put your custom code for your custom framework
 
@@ -1015,9 +1159,27 @@ function HasBoatLicense(src)
         else
             return false
         end
+    elseif SDC.Framework == "nd-core" then
+        if exports.ox_inventory:GetItemCount(src, "driver_license") >= 1 then
+            return true
+        else
+            return false
+        end
     elseif SDC.Framework == "custom" then
         --Here is where you would put your custom code for your custom framework
 
     end
 end
 exports("HasBoatLicense", HasBoatLicense)
+
+
+--------------------------------------------------------------------------------------------------------------
+-- Discord Functions
+--------------------------------------------------------------------------------------------------------------
+
+function SendDiscordWebhook(webhookid, embed)
+    if webhookid and Server_SDC.WebhookIds[webhookid] and embed then
+        PerformHttpRequest(Server_SDC.WebhookIds[webhookid], function(err, text, headers) end, 'POST', json.encode({username = SDC.WebhookSettings.Username, embeds = embed, avatar_url = SDC.WebhookSettings.AvatarUrl}), { ['Content-Type'] = 'application/json' })
+    end
+end
+exports("SendDiscordWebhook", SendDiscordWebhook)

@@ -3,13 +3,14 @@ SDC = {}
 ---------------------------------------------------------------------------------
 -------------------------------Important Configs---------------------------------
 ---------------------------------------------------------------------------------
-SDC.Framework = "esx" --[[ SET UP YOUR FRAMEWORK HERE
+SDC.Framework = "qb-core" --[[ SET UP YOUR FRAMEWORK HERE
 
     Can Be Anyone Of The Following Options Below:
 
     "qb-core" --Base QB-Core Functions will be utilized
     "esx" --Base ESX Legacy Functions will be utilized
     "qbx-core" --Base QBX Functions will be utilized
+    "nd-core" --Base ND-Core Functions will be utilized
     "custom" --This is where you would input all your own functions for your resource!
 
 ]]
@@ -59,6 +60,7 @@ SDC.GarageResource = "framework" --[[ SET UP YOUR GARAGE RESOURCE HERE
     "framework" --This will use the base framework garage resource setup
     "qs-advancedgarages" --This will use the quasar advanced garages setup
     "lunar_garage" --This will use the lunar garages setup
+    "vms_garages" --This will use the vms garages setup
 
 ]]
 SDC.DefaultGarage = "legionsquare" --[[ Choose Your Default Garage Here
@@ -86,6 +88,7 @@ SDC.FuelResource = "none" --[[ SET UP YOUR FUEL RESOURCE HERE
 
     "none" --This will disable the fuel functions for all resources
     "LegacyFuel" --This will utilize functions from LegacyFuel
+    "MSK_Fuel" --This will utilize functions from MSK_Fuel
 
 ]]
 
@@ -97,4 +100,9 @@ SDC.RandomPlateSettings = { --SET UP YOUR PLATE SETTINGS HERE
         TotalPlateLength = 8, --How many letters/numbers are in the plate
         PutBreakInMiddle = false --If you want it to put a break after the 3rd character on the plate
     }
+}
+
+SDC.WebhookSettings = { --SET UP YOUR WEBHOOK SETTINGS HERE
+    Username = "SDC Logs", --Username for the webhook bot
+    AvatarUrl = "" --Avatar Image for webhoom bot
 }
