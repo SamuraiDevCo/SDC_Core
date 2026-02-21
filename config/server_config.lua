@@ -5,5 +5,6 @@ Server_SDC = {}
 ---------------------------------------------------------------------------------
 
 Server_SDC.WebhookIds = {
-    CarBuilder = ""
+    CarBuilder = "",
+    Moonshine = ""
 }
