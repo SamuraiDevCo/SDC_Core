@@ -15,7 +15,7 @@ SDC.Framework = "qb-core" --[[ SET UP YOUR FRAMEWORK HERE
 
 ]]
 
-SDC.Inventory = "ox_inventory" --[[ SET UP YOUR INVENTORY HERE
+SDC.Inventory = "framework" --[[ SET UP YOUR INVENTORY HERE
 
     Can Be Anyone Of The Following Options Below:
 
@@ -26,7 +26,7 @@ SDC.Inventory = "ox_inventory" --[[ SET UP YOUR INVENTORY HERE
 
 ]]
 
-SDC.NotificationSystem = "ox_lib" --[[ SET UP YOUR NOTIFICATIONS HERE
+SDC.NotificationSystem = "framework" --[[ SET UP YOUR NOTIFICATIONS HERE
 
     Can Be Anyone Of The Following Options Below:
 
@@ -41,6 +41,14 @@ SDC.NotificationSystem = "ox_lib" --[[ SET UP YOUR NOTIFICATIONS HERE
 
 ]]
 
+SDC.BankingResource = "framework" --[[ SET UP YOUR BANKING HERE
+
+    Can Be Anyone Of The Following Options Below:
+
+    "framework" --This will use the framework functions (WORKS FOR ALMOST EVERY ONE)
+    "omes_banking" --This will use the omes_banking functions
+
+]]
 
 SDC.ProgressBar = "ox_lib" --[[ SET UP YOUR PROGRESS BAR HERE
 

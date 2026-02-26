@@ -11,113 +11,137 @@ elseif SDC.Framework == "esx" then
 end
 
 function GetCurrentBankAmount(src)
-    if SDC.Framework == "qb-core" then
-        local Player = QBCore.Functions.GetPlayer(src)
-        return Player.PlayerData.money['bank']
-    elseif SDC.Framework == "esx" then
-        local xPlayer = ESX.GetPlayerFromId(src)
-        return xPlayer.getAccount('bank').money
-    elseif SDC.Framework == "qbx-core" then
-        return exports.qbx_core:GetMoney(src, "bank")
-    elseif SDC.Framework == "nd-core" then
-        local Player = exports["ND_Core"]:getPlayer(src)
-        return Player.bank
-    elseif SDC.Framework == "custom" then
-        --Here is where you would put your custom code for your custom framework
+    if SDC.BankingResource == "framework" then
+        if SDC.Framework == "qb-core" then
+            local Player = QBCore.Functions.GetPlayer(src)
+            return Player.PlayerData.money['bank']
+        elseif SDC.Framework == "esx" then
+            local xPlayer = ESX.GetPlayerFromId(src)
+            return xPlayer.getAccount('bank').money
+        elseif SDC.Framework == "qbx-core" then
+            return exports.qbx_core:GetMoney(src, "bank")
+        elseif SDC.Framework == "nd-core" then
+            local Player = exports["ND_Core"]:getPlayer(src)
+            return Player.bank
+        elseif SDC.Framework == "custom" then
+            --Here is where you would put your custom code for your custom framework
 
+        end
+    elseif SDC.BankingResource == "omes_banking" then
+        return exports["omes_banking"]:GetBankBalance(src)
     end
 end
 exports("GetCurrentBankAmount", GetCurrentBankAmount)
 
 function RemoveBankMoney(src, amt)
-    if SDC.Framework == "qb-core" then
-        local Player = QBCore.Functions.GetPlayer(src)
-        return Player.Functions.RemoveMoney('bank', amt)
-    elseif SDC.Framework == "esx" then
-        local xPlayer = ESX.GetPlayerFromId(src)
-        return xPlayer.removeAccountMoney('bank', amt)
-    elseif SDC.Framework == "qbx-core" then
-        return exports.qbx_core:RemoveMoney(src, "bank", amt)
-    elseif SDC.Framework == "nd-core" then
-        local Player = exports["ND_Core"]:getPlayer(src)
-        return Player.deductMoney("bank", amt)
-    elseif SDC.Framework == "custom" then
-        --Here is where you would put your custom code for your custom framework
+    if SDC.BankingResource == "framework" then
+        if SDC.Framework == "qb-core" then
+            local Player = QBCore.Functions.GetPlayer(src)
+            return Player.Functions.RemoveMoney('bank', amt)
+        elseif SDC.Framework == "esx" then
+            local xPlayer = ESX.GetPlayerFromId(src)
+            return xPlayer.removeAccountMoney('bank', amt)
+        elseif SDC.Framework == "qbx-core" then
+            return exports.qbx_core:RemoveMoney(src, "bank", amt)
+        elseif SDC.Framework == "nd-core" then
+            local Player = exports["ND_Core"]:getPlayer(src)
+            return Player.deductMoney("bank", amt)
+        elseif SDC.Framework == "custom" then
+            --Here is where you would put your custom code for your custom framework
+        end
+    elseif SDC.BankingResource == "omes_banking" then
+        return exports["omes_banking"]:RemoveBankMoney(src, amt)
     end
 end
 exports("RemoveBankMoney", RemoveBankMoney)
 
 function AddBankAmount(src, amt)
-    if SDC.Framework == "qb-core" then
-        local Player = QBCore.Functions.GetPlayer(src)
-        Player.Functions.AddMoney('bank', amt)
-    elseif SDC.Framework == "esx" then
-        local xPlayer = ESX.GetPlayerFromId(src)
-        xPlayer.addAccountMoney('bank', amt)
-    elseif SDC.Framework == "qbx-core" then
-        exports.qbx_core:AddMoney(src, "bank", amt)
-    elseif SDC.Framework == "nd-core" then
-        local Player = exports["ND_Core"]:getPlayer(src)
-        Player.addMoney("bank", amt)
-    elseif SDC.Framework == "custom" then
-        --Here is where you would put your custom code for your custom framework
+    if SDC.BankingResource == "framework" then
+        if SDC.Framework == "qb-core" then
+            local Player = QBCore.Functions.GetPlayer(src)
+            Player.Functions.AddMoney('bank', amt)
+        elseif SDC.Framework == "esx" then
+            local xPlayer = ESX.GetPlayerFromId(src)
+            xPlayer.addAccountMoney('bank', amt)
+        elseif SDC.Framework == "qbx-core" then
+            exports.qbx_core:AddMoney(src, "bank", amt)
+        elseif SDC.Framework == "nd-core" then
+            local Player = exports["ND_Core"]:getPlayer(src)
+            Player.addMoney("bank", amt)
+        elseif SDC.Framework == "custom" then
+            --Here is where you would put your custom code for your custom framework
 
+        end
+    elseif SDC.BankingResource == "omes_banking" then
+        exports["omes_banking"]:AddBankMoney(src, amt)
     end
 end
 exports("AddBankAmount", AddBankAmount)
 
 function GetCurrentCashAmount(src)
-    if SDC.Framework == "qb-core" then
-        local Player = QBCore.Functions.GetPlayer(src)
-        return Player.PlayerData.money['cash']
-    elseif SDC.Framework == "esx" then
-        local xPlayer = ESX.GetPlayerFromId(src)
-        return xPlayer.getAccount('money').money
-    elseif SDC.Framework == "qbx-core" then
-        return exports.qbx_core:GetMoney(src, "cash")
-    elseif SDC.Framework == "nd-core" then
-        local Player = exports["ND_Core"]:getPlayer(src)
-        return Player.cash
-    elseif SDC.Framework == "custom" then
-        --Here is where you would put your custom code for your custom framework
+    if SDC.BankingResource == "framework" then
+        if SDC.Framework == "qb-core" then
+            local Player = QBCore.Functions.GetPlayer(src)
+            return Player.PlayerData.money['cash']
+        elseif SDC.Framework == "esx" then
+            local xPlayer = ESX.GetPlayerFromId(src)
+            return xPlayer.getAccount('money').money
+        elseif SDC.Framework == "qbx-core" then
+            return exports.qbx_core:GetMoney(src, "cash")
+        elseif SDC.Framework == "nd-core" then
+            local Player = exports["ND_Core"]:getPlayer(src)
+            return Player.cash
+        elseif SDC.Framework == "custom" then
+            --Here is where you would put your custom code for your custom framework
 
+        end
+    elseif SDC.BankingResource == "omes_banking" then
+        return exports["omes_banking"]:GetCashBalance(src)
     end
 end
 exports("GetCurrentCashAmount", GetCurrentCashAmount)
 
 function RemoveCashMoney(src, amt)
-    if SDC.Framework == "qb-core" then
-        local Player = QBCore.Functions.GetPlayer(src)
-        Player.Functions.RemoveMoney('cash', amt)
-    elseif SDC.Framework == "esx" then
-        local xPlayer = ESX.GetPlayerFromId(src)
-        xPlayer.removeAccountMoney('money', amt)
-    elseif SDC.Framework == "qbx-core" then
-        exports.qbx_core:RemoveMoney(src, "cash", amt)
-    elseif SDC.Framework == "nd-core" then
-        local Player = exports["ND_Core"]:getPlayer(src)
-        Player.deductMoney("cash", amt)
-    elseif SDC.Framework == "custom" then
-        --Here is where you would put your custom code for your custom framework
+    if SDC.BankingResource == "framework" then
+        if SDC.Framework == "qb-core" then
+            local Player = QBCore.Functions.GetPlayer(src)
+            Player.Functions.RemoveMoney('cash', amt)
+        elseif SDC.Framework == "esx" then
+            local xPlayer = ESX.GetPlayerFromId(src)
+            xPlayer.removeAccountMoney('money', amt)
+        elseif SDC.Framework == "qbx-core" then
+            exports.qbx_core:RemoveMoney(src, "cash", amt)
+        elseif SDC.Framework == "nd-core" then
+            local Player = exports["ND_Core"]:getPlayer(src)
+            Player.deductMoney("cash", amt)
+        elseif SDC.Framework == "custom" then
+            --Here is where you would put your custom code for your custom framework
+        end
+    elseif SDC.BankingResource == "omes_banking" then
+        exports["omes_banking"]:RemoveCashMoney(src, amt)
     end
 end
 exports("RemoveCashMoney", RemoveCashMoney)
 
 function AddCashAmount(src, amt)
-    if SDC.Framework == "qb-core" then
-        local Player = QBCore.Functions.GetPlayer(src)
-        Player.Functions.AddMoney('cash', amt)
-    elseif SDC.Framework == "esx" then
-        local xPlayer = ESX.GetPlayerFromId(src)
-        xPlayer.addAccountMoney('money', amt)
-    elseif SDC.Framework == "qbx-core" then
-        exports.qbx_core:AddMoney(src, "cash", amt)
-    elseif SDC.Framework == "nd-core" then
-        local Player = exports["ND_Core"]:getPlayer(src)
-        Player.addMoney("cash", amt)
-    elseif SDC.Framework == "custom" then
-        --Here is where you would put your custom code for your custom framework
+    if SDC.BankingResource == "framework" then
+        if SDC.Framework == "qb-core" then
+            local Player = QBCore.Functions.GetPlayer(src)
+            Player.Functions.AddMoney('cash', amt)
+        elseif SDC.Framework == "esx" then
+            local xPlayer = ESX.GetPlayerFromId(src)
+            xPlayer.addAccountMoney('money', amt)
+        elseif SDC.Framework == "qbx-core" then
+            exports.qbx_core:AddMoney(src, "cash", amt)
+        elseif SDC.Framework == "nd-core" then
+            local Player = exports["ND_Core"]:getPlayer(src)
+            Player.addMoney("cash", amt)
+        elseif SDC.Framework == "custom" then
+            --Here is where you would put your custom code for your custom framework
 
+        end
+    elseif SDC.BankingResource == "omes_banking" then
+        exports["omes_banking"]:AddCashMoney(src, amt)
     end
 end
 exports("AddCashAmount", AddCashAmount)
@@ -385,6 +409,57 @@ function HasItemAmt(src, item, amt)
     end
 end
 exports("HasItemAmt", HasItemAmt)
+
+function CanCarryItem(src, item, amt)
+    if SDC.Inventory == "framework" then
+        if SDC.Framework == "qb-core" then
+            local Player = QBCore.Functions.GetPlayer(src)
+            if Player.Functions.CanAddItem(src, item, amt) then
+                return true
+            else
+                return false
+            end
+        elseif SDC.Framework == "esx" then
+            local xPlayer = ESX.GetPlayerFromId(src)
+            if xPlayer.canCarryItem(item, amt) then
+                return true
+            else
+                return false
+            end
+        elseif SDC.Framework == "qbx-core" then
+            if exports.ox_inventory:CanCarryItem(src, item, amt) then
+                return true
+            else
+                return false
+            end
+        elseif SDC.Framework == "nd-core" then
+            if exports.ox_inventory:CanCarryItem(src, item, amt) then
+                return true
+            else
+                return false
+            end
+        elseif SDC.Framework == "custom" then
+            --Here is where you would put your custom code for your custom framework
+
+        end
+    elseif SDC.Inventory == "ox_inventory" then
+        if exports.ox_inventory:CanCarryItem(src, item, amt) then
+            return true
+        else
+            return false
+        end
+    elseif SDC.Inventory == "quasar-inventory" then
+        if exports['qs-inventory']:CanCarryItem(src, item, amt) then
+            return true
+        else
+            return false
+        end
+    elseif SDC.Inventory == "mInventory" then
+        --Not Made In Inventory Resource
+        return true
+    end
+end
+exports("CanCarryItem", CanCarryItem)
 
 function GetItemAmt(src, item)
     if SDC.Inventory == "framework" then
@@ -1123,7 +1198,7 @@ RegisterServerEvent("SDC_CORE:Server:GiveVehKeys")
 AddEventHandler("SDC_CORE:Server:GiveVehKeys", function(netid)
     local src = source
     if SDC.Framework == "qbx-core" then
-        exports.qbx_vehiclekeys:GiveKeys(src, netid)
+        exports.qbx_vehiclekeys:GiveKeys(src, NetworkGetEntityFromNetworkId(netid))
     elseif SDC.Framework == "nd-core" then
         exports["ND_Core"]:giveVehicleAccess(src, NetworkGetEntityFromNetworkId(netid), true, {netId = netid})
     elseif SDC.Framework == "custom" then
