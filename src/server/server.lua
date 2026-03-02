@@ -414,7 +414,7 @@ function CanCarryItem(src, item, amt)
     if SDC.Inventory == "framework" then
         if SDC.Framework == "qb-core" then
             local Player = QBCore.Functions.GetPlayer(src)
-            if Player.Functions.CanAddItem(src, item, amt) then
+            if exports["qb-inventory"]:CanAddItem(src, item, amt) then
                 return true
             else
                 return false
