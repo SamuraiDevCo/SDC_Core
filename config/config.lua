@@ -69,6 +69,7 @@ SDC.GarageResource = "framework" --[[ SET UP YOUR GARAGE RESOURCE HERE
     "qs-advancedgarages" --This will use the quasar advanced garages setup
     "lunar_garage" --This will use the lunar garages setup
     "vms_garages" --This will use the vms garages setup
+    "ak47_garages" --This will use the ak47 garages setup
 
 ]]
 SDC.DefaultGarage = "legionsquare" --[[ Choose Your Default Garage Here
